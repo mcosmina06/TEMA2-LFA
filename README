@@ -1,0 +1,31 @@
+Mandru Cosmina
+333CB
+
+								Tema 2 - LFA
+
+	Am construit o clasa AF in care am retinut toate atributele specifice atat
+unui NFA cat si a unui DFA.
+	Ambele matrici de tranzitii le-am tinut sub forma unui didctionar de dictioanre:
+"{0:{a:0, b:2}, 1:{a:2}}". 
+	Functia -> read_input: realizeaza citirea din fisier si parzarea lui intr-un NFA.
+			-> compute_SetOfTans_from_SetOfTans: primeste ca parametru tabela de tranzitii,
+		un carcater si o multime de stari. Intoarce o noua multime de stari la care se 
+		ajunge pe caracterul dat din multimea data. Este tinut ca un set pentru a nu avea
+		dublicate
+			-> compute_EpsilonClosure: genereaza multimile de epsilon-inchideri pentru 
+		fiecare stare din tabela de tranzitii. Pentru fiecare stare din tabel generez noua 
+		stare pe care pot ajunge pe epsilon, dar doar caile directe inital. Apoi cat timp
+		se observa modificari la multimi, se realizeaza reuniunea fiecarei multimi cu
+		inchiderile epsilon a fiecarei tranzitiei din multimea curenta.
+			-> compute_TransitionTable2: generez a doua matrice de tranzitii de formma unui 
+			dictionar de dictionare, asemeni primei tabele. Incep prin a pune intr-o "coada"
+			inchiderea epsilon a starii intiale, si anume 0. Se extrage starea curenta din
+			coada, se creaza o intrare pentru aceasta in dictionar si generez noua stare pe
+			care pot ajunge pe caractele alfabetului, mai putin epsilon. Dupa generarea noii
+			stari, i se calculeaza acesteia epsilon inchiderea astfel: se ia fiecare stare
+			din multime si realizeaza reuniunea cu stare generat de compute_SetOfTans_from_SetOfTans.
+			Daca starea gasita dupa reuniuni nu exista in coada, o adaug si algoritmul continua 
+			pana cand nu mai sunt stari in coada. Apoi marchez noile stari finale, realizez 
+			codificarile noilor stari gasite si mai adaug sink state cu tranzitiile specifice
+			acestei stari. => DFA
+
